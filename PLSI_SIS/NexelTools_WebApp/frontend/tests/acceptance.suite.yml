@@ -1,0 +1,10 @@
+suite_namespace: frontend\tests\acceptance
+actor: AcceptanceTester
+modules:
+    enabled:
+      - WebDriver:
+          url: "http://localhost/NexelTools/PLSI_SIS/NexelTools_WebApp/frontend/web/"
+          browser: chrome
+      - Yii2:
+          part: ORM
+      - Asserts

@@ -1,0 +1,9 @@
+RewriteEngine On
+
+# Caso o arquivo ou diretório solicitado exista, use o pedido diretamente
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Caso contrário, redireciona para o index.php (como o Yii2 normalmente faz)
+RewriteRule . index.php
+
