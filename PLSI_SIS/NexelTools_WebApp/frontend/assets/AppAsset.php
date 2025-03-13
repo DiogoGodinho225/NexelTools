@@ -24,6 +24,8 @@ class AppAsset extends AssetBundle
         'js/main.js',
         'https://code.jquery.com/jquery-3.4.1.min.js',
         'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/jqBootstrapValidation/1.3.7/jqBootstrapValidation.min.js'
+
     ];
     public $depends = [
         'yii\web\YiiAsset',

@@ -8,6 +8,7 @@ use common\models\Categoria;
 use common\models\Imagem;
 use common\models\Imagemproduto;
 use common\models\Produto;
+use common\models\Profile;
 use frontend\models\Favorito;
 use frontend\models\Linhacarrinho;
 use PHPUnit\TextUI\XmlConfiguration\Constant;
@@ -164,8 +165,14 @@ class ProdutoController extends Controller
             }
         }
 
+        if(!Yii::$app->user->isGuest){
+            $id_user = Yii::$app->user->id;
+            $profile = Profile::find()->where(['id_user' => $id_user])->one();
+        }
+
         return $this->render('view', [
             'model' => $model,
+            'profile_id' => isset($profile) ? $profile->id : null,
             'imagemUrls' => $imagemUrls,
             'reviews' => $avaliacoesVendedor,
             'reviewsCount' => count($avaliacoesVendedor),

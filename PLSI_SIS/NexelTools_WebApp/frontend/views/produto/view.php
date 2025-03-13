@@ -14,6 +14,9 @@ $this->title = $model->nome;
 ?>
 <div class="produto-view">
 
+    <div class="chat-view">
+        
+    </div>
     <h1 class="section-title position-relative text-uppercase mb-4">
     <span class="bg-secondary pr-3">
         <?= Html::encode($this->title) ?>
@@ -54,24 +57,35 @@ $this->title = $model->nome;
                         <h3 class="font-weight-semi-bold mb-4">Contactos:</h3>
                         <p>Telemóvel: <?= Html::encode($model->profile->telemovel) ?></p>
                         <p>Email: <?= Html::encode($model->profile->user->email) ?></p>
-                    <div class="d-flex align-items-center mb-4 pt-2">
-
+                    <div class="d-flex justify-content-end align-items-center mb-4 pt-2">
                         <?php if (Yii::$app->user->isGuest): ?>
                             <?= Html::a('<i class="fa fa-shopping-cart mr-1"></i> Adicionar ao Carrinho', ['#'], [
-                                'class' => "btn btn-primary px- btnCart",
+                                'class' => "btn btn-primary px- btnCart mr-2",
                                 'onclick' => 'alert("Faça login para adicionar um produto!"); return false;']) ?>
                         <?php else: ?>
-                            <?= Html::a('<i class="fa fa-shopping-cart mr-1"></i> Adicionar ao Carrinho', ['carrinhocompra/create', 'id_produto' => $model->id], ['class'=>'btn btn-primary px- btnCart']) ?>
+                            <?= Html::a('<i class="fa fa-shopping-cart mr-1"></i> Adicionar ao Carrinho', ['carrinhocompra/create', 'id_produto' => $model->id], ['class'=>'btn btn-primary px- btnCart mr-2']) ?>
                         <?php endif; ?>
 
                         <?php if (Yii::$app->user->isGuest): ?>
                             <?= Html::a('<i class="fa fa-heart"></i>', ['#'], [
-                                'class' => "btn btn-primary px- btnAddFav",
+                                'class' => "btn btn-primary px- btnAddFav mr-2",
                                 'onclick' => 'alert("Faça login para adicionar um favorito!"); return false;']) ?>
                         <?php else: ?>
-                            <?= Html::a('<i class="fa fa-heart"></i>', ['favorito/create', 'id_produto' => $model->id], ['class'=>'btn btn-primary px- btnAddFav']) ?>
+                            <?= Html::a('<i class="fa fa-heart"></i>', ['favorito/create', 'id_produto' => $model->id], ['class'=>'btn btn-primary px- btnAddFav mr-2']) ?>
+                        <?php endif; ?>
+
+                        <?php if (Yii::$app->user->isGuest): ?>
+                            <?= Html::a('<i class="fas fa-comment"></i>', ['#'], [
+                                'class' => "btn btn-primary px- btnMessage",
+                                'onclick' => 'alert("Faça login para enviar uma mensagem!"); return false;']) ?>
+                        <?php else: ?>
+                            <?= Html::button('<i class="fas fa-comment"></i>', [
+                                'class' => 'btn btn-primary px- btnMessage',
+                                'onclick' => 'abrirChat(' . $model->profile->id . ',' . $profile_id . ')',
+                            ]) ?>
                         <?php endif; ?>
                     </div>
+
                 </div>
             </div>
         </div>

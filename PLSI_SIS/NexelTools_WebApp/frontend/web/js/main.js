@@ -102,5 +102,62 @@
     
 })(jQuery);
 
+function abrirChat(user1_id, user2_id) {
+    var chat = document.querySelector('.chat-view');
+    var produtoView = document.querySelector('.produto-view');
+    
+    var overlay = document.querySelector('.overlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.classList.add('overlay');
+        produtoView.appendChild(overlay); 
+    }
 
+    console.log(user1_id);
+    console.log(user2_id);
+    document.body.style.overflow = 'hidden'; 
 
+    $.ajax({
+        url: '/chat/view',
+        method: 'GET',
+        data: {
+            user1_id: user1_id,
+            user2_id: user2_id,
+        },
+        success: function (data) {
+            chat.innerHTML = data; 
+            chat.style.display = 'block'; 
+            chat.classList.add('show'); 
+            overlay.classList.add('show'); 
+            overlay.style.display = 'block';
+        }
+    });
+
+    overlay.addEventListener("click", function (event) {
+        if (!document.querySelector(".chat-container").contains(event.target)) {
+            fecharChat();
+        }
+    });
+}
+
+function alterarEstado(inputText) {
+    const btnEnviar = document.querySelector('.btn-send-message');
+
+    if (inputText.value == '') {
+        btnEnviar.disabled = true;
+        inputText.placeholder = 'Escreva uma mensagem...';
+    } else {
+        btnEnviar.disabled = false;
+    }
+}
+
+function fecharChat() {
+    var chat = document.querySelector(".chat-view");
+    var overlay = document.querySelector(".overlay");
+
+    chat.classList.remove('show');
+    overlay.classList.remove('show');    
+    chat.style.display = "none";
+    overlay.style.display = "none";
+    document.body.style.overflow = 'auto'; 
+}
